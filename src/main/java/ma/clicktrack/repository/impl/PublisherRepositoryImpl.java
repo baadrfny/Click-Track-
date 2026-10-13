@@ -8,19 +8,19 @@ import ma.clicktrack.model.Publisher;
 
 import ma.clicktrack.repository.PublisherRepository;
 
-public class PublisherRepositoryImpl implements PublisherRepository {
+public  class PublisherRepositoryImpl implements PublisherRepository {
     
     private List<Publisher> publishers = new ArrayList<>();
 
 
     @Override
-    public List<Publisher> findAll(){
-        return publishers;
+    public synchronized List<Publisher> findAll(){
+        return new ArrayList<>(publishers);
     }
 
 
     @Override 
-    public Publisher findById(Long id){
+    public synchronized Publisher findById(Long id){
         for (int i = 0; i < publishers.size(); i++) {
             Publisher publisher = publishers.get(i);
             if (Objects.equals(publisher.getId(), id)) {
@@ -32,7 +32,7 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override 
-    public void save(Publisher publisher){
+    public synchronized void save(Publisher publisher){
         publishers.add(publisher);
     }
 }

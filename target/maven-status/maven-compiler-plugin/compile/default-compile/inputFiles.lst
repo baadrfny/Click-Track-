@@ -4,12 +4,12 @@ C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clic
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\dto\LienRequest.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\dto\LienResponse.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\dto\OffreResponse.java
+C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\dto\PublisherResponse.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\model\enums\Categorie.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\model\Lien.java
-C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\model\Offre.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\model\Publisher.java
-C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\impl\InMemoryLienRepository.java
-C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\impl\InMemoryPublisherRepository.java
+C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\impl\LienRepositoryImpl.java
+C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\impl\PublisherRepositoryImpl.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\LienRepository.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\repository\PublisherRepository.java
 C:\Users\Badr\OneDrive\Documents\projects\ClickTrack\track\src\main\java\ma\clicktrack\service\impl\LienServiceImpl.java

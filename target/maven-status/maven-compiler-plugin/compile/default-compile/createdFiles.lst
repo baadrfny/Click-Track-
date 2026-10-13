@@ -1,1 +1,12 @@
+ma\clicktrack\model\Lien.class
+ma\clicktrack\model\Publisher.class
+ma\clicktrack\service\LienService.class
 ma\clicktrack\config\DataInitializer.class
+ma\clicktrack\service\impl\LienServiceImpl.class
+ma\clicktrack\repository\impl\LienRepositoryImpl.class
+ma\clicktrack\repository\impl\PublisherRepositoryImpl.class
+ma\clicktrack\model\enums\Categorie.class
+ma\clicktrack\dto\OffreResponse.class
+ma\clicktrack\repository\PublisherRepository.class
+ma\clicktrack\dto\PublisherResponse.class
+ma\clicktrack\repository\LienRepository.class

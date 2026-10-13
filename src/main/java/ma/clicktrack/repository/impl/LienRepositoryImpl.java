@@ -12,7 +12,7 @@ public class LienRepositoryImpl implements LienRepository{
     private List<Lien> liens = new ArrayList<>();
 
     @Override 
-    public List<Lien> findByPublisherId(Long publisherId){
+    public synchronized List<Lien> findByPublisherId(Long publisherId){
         List<Lien> linkPublisherId = new ArrayList<>();
         for (int i = 0; i < liens.size(); i++) {
             Lien lien = liens.get(i);
@@ -25,7 +25,7 @@ public class LienRepositoryImpl implements LienRepository{
 
 
     @Override 
-    public Lien findById(Long id){
+    public synchronized Lien findById(Long id){
         for (int i = 0; i < liens.size(); i++) {
             Lien lien = liens.get(i);
             if (lien.getId().equals(id)) {
@@ -36,7 +36,7 @@ public class LienRepositoryImpl implements LienRepository{
     }
 
     @Override 
-    public void save(Lien lien){
+    public synchronized void save(Lien lien){
         liens.add(lien);
     }
 }

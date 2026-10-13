@@ -16,6 +16,10 @@ public class Lien {
         this.publisherId = publisherId;
     }
 
+    public synchronized void incrementClicks() {
+        this.clicks++;
+    }
+
     public Long getId() {
         return id;
     }
@@ -35,6 +39,8 @@ public class Lien {
     public Long getPublisherId() {
         return publisherId;
     }
+
+
 
     
 }
