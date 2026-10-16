@@ -21,7 +21,7 @@ public class TrackingController {
         this.lienService = lienService;
     }
 
-    @GetMapping("/api/liens/{id}/track")
+    @GetMapping("/api/t/{id}")
     public ResponseEntity<?> trackLink(@PathVariable("id") Long id){
 
         Lien lien = lienService.trackClick(id);
