@@ -10,4 +10,5 @@ public interface LienRepository {
     List<Lien> findByPublisherId(Long publisherId);
     Lien findById(Long id);
     void save(Lien lien);
+    
 }
