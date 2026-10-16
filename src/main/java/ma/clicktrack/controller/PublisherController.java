@@ -1,12 +1,12 @@
-package ma.clicktrack.controller;
 
-import ma.clicktrack.service.impl.LienServiceImpl;
-import ma.clicktrack.service.impl.PublisherServiceImpl;
+package ma.clicktrack.controller;
 
 import java.util.List;
 
 import ma.clicktrack.model.Lien;
 import ma.clicktrack.model.Publisher;
+import ma.clicktrack.service.impl.LienServiceImpl;
+import ma.clicktrack.service.impl.PublisherServiceImpl;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,52 +22,99 @@ public class PublisherController {
     private final PublisherServiceImpl publisherServiceImpl;
     private final LienServiceImpl lienServiceImpl;
 
-    public PublisherController(PublisherServiceImpl publisherServiceImpl , LienServiceImpl lienServiceImpl) {
+    public PublisherController(
+            PublisherServiceImpl publisherServiceImpl,
+            LienServiceImpl lienServiceImpl) {
+
         this.publisherServiceImpl = publisherServiceImpl;
         this.lienServiceImpl = lienServiceImpl;
     }
 
     @GetMapping("/api/publishers")
-    public List<Publisher> getPublishers() {
-        return publisherServiceImpl.getAllPublishers();
+    public ResponseEntity<List<Publisher>> getPublishers() {
+        return ResponseEntity.ok(
+                publisherServiceImpl.getAllPublishers()
+        );
     }
 
     @GetMapping("/api/publishers/{id}")
-    public Object getPublisherById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getPublisherById(
+            @PathVariable("id") Long id) {
+
         Publisher publisher = publisherServiceImpl.getPublisherById(id);
+
         if (publisher == null) {
-            return new ResponseEntity<>("Publisher not found", HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Publisher not found");
         }
-        return publisher;
+
+        return ResponseEntity.ok(publisher);
     }
 
     @GetMapping("/api/publishers/{id}/offres")
-    public Object getPublisherOffres(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getPublisherOffres(
+            @PathVariable("id") Long id) {
+
         Publisher publisher = publisherServiceImpl.getPublisherById(id);
 
         if (publisher == null) {
-            return new ResponseEntity<>(
-                    "Publisher not found",
-                    HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Publisher not found");
         }
 
-        return publisherServiceImpl.getPublisherOffres(id);
+        return ResponseEntity.ok(
+                publisherServiceImpl.getPublisherOffres(id)
+        );
     }
-
-
 
     @GetMapping("/api/publishers/{id}/liens")
-    public List<Lien> getPublisherLiens(@PathVariable("id") Long id){
-        return lienServiceImpl.getPublisherLiens(id);
-    }
+    public ResponseEntity<?> getPublisherLiens(
+            @PathVariable("id") Long id) {
 
+        Publisher publisher = publisherServiceImpl.getPublisherById(id);
+
+        if (publisher == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Publisher not found");
+        }
+
+        return ResponseEntity.ok(
+                lienServiceImpl.getPublisherLiens(id)
+        );
+    }
 
     @PostMapping("/api/publishers/{id}/liens")
-    public Lien createLien(@PathVariable("id") Long puhlisherId , @RequestBody Lien lien){
-        return lienServiceImpl.createLink(puhlisherId , lien.getUrlDestination() , lien.getOffre());
+    public ResponseEntity<?> createLien(
+            @PathVariable("id") Long publisherId,
+            @RequestBody Lien lien) {
+
+        // Check whether the publisher exists
+        Publisher publisher =
+                publisherServiceImpl.getPublisherById(publisherId);
+
+        if (publisher == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Publisher not found");
+        }
+
+        // Validate the required fields
+        if (lien.getUrlDestination() == null
+                || lien.getUrlDestination().isBlank()
+                || lien.getOffre() == null
+                || lien.getOffre().isBlank()) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("urlDestination and offre are required");
+        }
+
+        // Create the link
+        Lien createdLien = lienServiceImpl.createLink(
+                publisherId,
+                lien.getUrlDestination(),
+                lien.getOffre()
+        );
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createdLien);
     }
-
-
-    
-
 }
