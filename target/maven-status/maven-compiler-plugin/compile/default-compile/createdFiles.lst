@@ -5,6 +5,7 @@ ma\clicktrack\repository\impl\LienRepositoryImpl.class
 ma\clicktrack\repository\impl\PublisherRepositoryImpl.class
 ma\clicktrack\dto\OffreResponse.class
 ma\clicktrack\controller\PublisherController.class
+ma\clicktrack\controller\TrackingController.class
 ma\clicktrack\repository\LienRepository.class
 ma\clicktrack\model\Lien.class
 ma\clicktrack\service\impl\PublisherServiceImpl.class
