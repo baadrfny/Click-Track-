@@ -1,6 +1,6 @@
 package ma.clicktrack.controller;
 
-import ma.clicktrack.service.impl.LienServiceImpl;
+import ma.clicktrack.service.LienService;
 
 
 import ma.clicktrack.model.Lien;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TrackingController {
 
-    private final LienServiceImpl lienServiceImpl;
+    private final LienService lienService;
 
-    public TrackingController(LienServiceImpl lienServiceImpl){
-        this.lienServiceImpl = lienServiceImpl;
+    public TrackingController(LienService lienService){
+        this.lienService = lienService;
     }
 
     @GetMapping("/api/liens/{id}/track")
     public ResponseEntity<?> trackLink(@PathVariable("id") Long id){
 
-        Lien lien = lienServiceImpl.trackClick(id);
+        Lien lien = lienService.trackClick(id);
         if (lien == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body("Link not found");

@@ -5,8 +5,8 @@ import java.util.List;
 
 import ma.clicktrack.model.Lien;
 import ma.clicktrack.model.Publisher;
-import ma.clicktrack.service.impl.LienServiceImpl;
-import ma.clicktrack.service.impl.PublisherServiceImpl;
+import ma.clicktrack.service.LienService;
+import ma.clicktrack.service.PublisherService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PublisherController {
 
-    private final PublisherServiceImpl publisherServiceImpl;
-    private final LienServiceImpl lienServiceImpl;
+    private final PublisherService publisherService;
+    private final LienService lienService;
 
     public PublisherController(
-            PublisherServiceImpl publisherServiceImpl,
-            LienServiceImpl lienServiceImpl) {
+            PublisherService publisherService,
+            LienService lienService) {
 
-        this.publisherServiceImpl = publisherServiceImpl;
-        this.lienServiceImpl = lienServiceImpl;
+        this.publisherService = publisherService;
+        this.lienService = lienService;
     }
 
     @GetMapping("/api/publishers")
     public ResponseEntity<List<Publisher>> getPublishers() {
         return ResponseEntity.ok(
-                publisherServiceImpl.getAllPublishers()
+                publisherService.getAllPublishers()
         );
     }
 
@@ -41,7 +41,7 @@ public class PublisherController {
     public ResponseEntity<?> getPublisherById(
             @PathVariable("id") Long id) {
 
-        Publisher publisher = publisherServiceImpl.getPublisherById(id);
+        Publisher publisher = publisherService.getPublisherById(id);
 
         if (publisher == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -55,7 +55,7 @@ public class PublisherController {
     public ResponseEntity<?> getPublisherOffres(
             @PathVariable("id") Long id) {
 
-        Publisher publisher = publisherServiceImpl.getPublisherById(id);
+        Publisher publisher = publisherService.getPublisherById(id);
 
         if (publisher == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -63,7 +63,7 @@ public class PublisherController {
         }
 
         return ResponseEntity.ok(
-                publisherServiceImpl.getPublisherOffres(id)
+                publisherService.getPublisherOffres(id)
         );
     }
 
@@ -71,7 +71,7 @@ public class PublisherController {
     public ResponseEntity<?> getPublisherLiens(
             @PathVariable("id") Long id) {
 
-        Publisher publisher = publisherServiceImpl.getPublisherById(id);
+        Publisher publisher = publisherService.getPublisherById(id);
 
         if (publisher == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -79,18 +79,14 @@ public class PublisherController {
         }
 
         return ResponseEntity.ok(
-                lienServiceImpl.getPublisherLiens(id)
+                lienService.getPublisherLiens(id)
         );
     }
 
     @PostMapping("/api/publishers/{id}/liens")
-    public ResponseEntity<?> createLien(
-            @PathVariable("id") Long publisherId,
-            @RequestBody Lien lien) {
+    public ResponseEntity<?> createLien(@PathVariable("id") Long publisherId, @RequestBody Lien lien) {
 
-        // Check whether the publisher exists
-        Publisher publisher =
-                publisherServiceImpl.getPublisherById(publisherId);
+        Publisher publisher = publisherService.getPublisherById(publisherId);
 
         if (publisher == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -108,7 +104,7 @@ public class PublisherController {
         }
 
         // Create the link
-        Lien createdLien = lienServiceImpl.createLink(
+        Lien createdLien = lienService.createLink(
                 publisherId,
                 lien.getUrlDestination(),
                 lien.getOffre()
